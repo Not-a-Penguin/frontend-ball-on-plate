@@ -13,13 +13,7 @@ function App() {
 
   const [xCoord, setXCoord] = useState(0)
   const [yCoord, setYCoord] = useState(0)
-  const [dataPoints, setDataPoints] = useState([{x:1}, {y:2}, {z:3}, {a:4}, {b:5}])
-  const [newData, setNewData] = useState(false)
-
-  const coord = [
-    {x: xCoord},
-    {y: yCoord}
-  ]
+  const [dataPoints, setDataPoints] = useState([{}, {}, {}, {}, {}, {}])
 
   const [socketUrl, setSocketUrl] = useState('ws://localhost:1836');
 
@@ -31,15 +25,14 @@ function App() {
     },
     onMessage: () => {
       if (lastMessage) {
-        // console.log(lastMessage.data);
+        console.log(lastMessage.data);
         var data = JSON.parse(lastMessage.data);
-        setXCoord(data.x);
-        setYCoord(data.y);
+        setXCoord(data.xPos);
+        setYCoord(data.yPos);
         //Put points into current data array
         // setDataPoints(newDataPoints => [{x: data.x, y: data.y}, ...newDataPoints]);
-        setDataPoints(newDataPoints => [...newDataPoints, {x: data.x, y: data.y}]);
+        setDataPoints(newDataPoints => [...newDataPoints, {x: data.xPos, y: data.yPos}]);
         setDataPoints(newDataPoints => newDataPoints.slice(1));
-        setNewData(true);
         // console.log(dataPoints)
       }
     }
@@ -49,9 +42,18 @@ function App() {
       <body>
         <HeaderComponent/>  
         <main className='main'>
-          <CardComponent title="Coordinates" cardText1="" >X: {xCoord} <br></br>Y: {yCoord}</CardComponent>
+          <CardComponent title="Coordinates" cardText1="" >
+            X: {xCoord} <br></br>Y: {yCoord}
+          </CardComponent>
+
+          <CardComponent title="Coordinate history">
+            {dataPoints.map((data) => {
+              return(<>X: {data.x} || Y:{data.y}<br></br></>)
+            })}
+          </CardComponent>
+
           <CardComponent title="Live plot">
-            <LinePlot newData={newData} data={dataPoints}/>
+            <LinePlot xValue={xCoord} yValue={yCoord}/>
           </CardComponent>
         </main>
       </body>

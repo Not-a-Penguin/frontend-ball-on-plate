@@ -3,7 +3,7 @@ import './card.css'
 
 function CardComponent(props) {
   return (
-    <Card style={{ width: '20rem' }} className='cardComponent'>
+    <Card style={{ width: '25rem' }} className='cardComponent'>
       <Card.Body>
         <Card.Header>{props.title}</Card.Header>
         <br></br>
