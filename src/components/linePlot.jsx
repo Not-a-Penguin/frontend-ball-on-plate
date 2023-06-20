@@ -15,8 +15,8 @@ export default function LinePlot(props){
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
         ctx.fillStyle = '#000000'
         ctx.beginPath()
-		const xPos = scale(xValue + 14, -10, 10, 0, ctx.canvas.height)
-        const yPos = scale(yValue + 2, -10, 10, 0, ctx.canvas.height-20)
+		const xPos = scale(xValue, 9, 30, 10, ctx.canvas.width-10)
+        const yPos = scale(yValue, 9, 30, 5, ctx.canvas.height-5)
         ctx.arc(xPos, yPos, 15, 0, 2*Math.PI)
         ctx.fill()
     }

@@ -25,7 +25,7 @@ function App() {
     },
     onMessage: () => {
       if (lastMessage) {
-        console.log(lastMessage.data);
+        // console.log(lastMessage.data);
         var data = JSON.parse(lastMessage.data);
         setXCoord(data.xPos);
         setYCoord(data.yPos);
@@ -43,17 +43,17 @@ function App() {
         <HeaderComponent/>  
         <main className='main'>
           <CardComponent title="Coordinates" cardText1="" >
-            X: {xCoord} <br></br>Y: {yCoord}
+            X: {(parseFloat(xCoord)/100).toFixed(2)} <br></br>Y: {(parseFloat(yCoord)/100).toFixed(2)}
           </CardComponent>
 
           <CardComponent title="Coordinate history">
             {dataPoints.map((data) => {
-              return(<>X: {data.x} || Y:{data.y}<br></br></>)
+              return(<>X: {(parseFloat(data.x)/100).toFixed(2)} || Y:{(parseFloat(data.y)/100).toFixed(2)}<br></br></>)
             })}
           </CardComponent>
 
           <CardComponent title="Live plot">
-            <LinePlot xValue={xCoord} yValue={yCoord}/>
+            <LinePlot xValue={(parseFloat(xCoord)/100).toFixed(2)} yValue={(parseFloat(yCoord)/100).toFixed(2)}/>
           </CardComponent>
         </main>
       </body>
